@@ -459,9 +459,9 @@ extension BarcodeScannerController: AVCaptureMetadataOutputObjectsDelegate {
 
     if !shouldProcessAfterCapture {
         animateFlash(whenProcessing: false)
-        codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: rawType)
+        codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: metadataObj.type)
     } else {
-        codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: rawType)
+        codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: metadataObj.type)
         animateFlash(whenProcessing: isOneTimeSearch)
     }
   }
