@@ -160,6 +160,9 @@ open class BarcodeScannerController: UIViewController {
 
   /// Delegate to dismiss barcode scanner when the close button has been pressed.
   public weak var dismissalDelegate: BarcodeScannerDismissalDelegate?
+  
+  /// Flag to determine if info view should show processing state after barcode has been captured
+  public var shouldProcessAfterCapture: Bool = false
 
   /// Flag to lock session from capturing.
   private var locked = false
@@ -472,8 +475,13 @@ extension BarcodeScannerController: AVCaptureMetadataOutputObjectsDelegate {
       rawType = AVMetadataObject.ObjectType.upca.rawValue
     }
 
-    codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: rawType)
-    animateFlash(whenProcessing: isOneTimeSearch)
+    if !shouldProcessAfterCapture {
+        animateFlash(whenProcessing: false)
+        codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: rawType)
+    } else {
+        codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: rawType)
+        animateFlash(whenProcessing: isOneTimeSearch)
+    }
   }
 }
 
