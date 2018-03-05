@@ -209,8 +209,6 @@ open class BarcodeScannerController: UIViewController {
   
   open override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
-    headerView.isHidden = !isBeingPresented
   }
   
   open override func viewDidAppear(_ animated: Bool) {
